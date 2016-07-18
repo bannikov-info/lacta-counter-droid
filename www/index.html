@@ -1,92 +1,60 @@
 <!DOCTYPE html>
-<html lang="ru" >
-  <head>
-    <title>Счётчик Кормлений</title>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
-    <link rel="stylesheet" href="css/vendor.css"/>
-    <link rel="stylesheet" href="css/app.css"/>
-    <style type="text/css">
-        /**
-         * Hide when Angular is not yet loaded and initialized
-         */
-        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-          display: none !important;
-        }
-    </style>
+    http://www.apache.org/licenses/LICENSE-2.0
 
-  </head>
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
 
-  <body data-role="page" layout="column" ng-controller="LactationsCtrl as lc" ng-cloak>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
-    <div data-role="header" md-toolbar layout="row">
-      <!-- <md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
-        <md-icon md-svg-icon="menu" ></md-icon>
-      </md-button> -->
-      <h1 class="md-toolbar-tools" ng-hide="lc.selected">Счётчик Кормлений</h1>
-      <span flex></span>
-      <!-- <div ng-show="lc.selected"> -->
-          <md-button  ng-show="lc.selected"
-                      ng-click="lc.removeSelected()"
-                      class="md-raised" aria-label="remove">Удалить</md-button>
-      <!-- </div> -->
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Hello World</title>
+</head>
+
+<body>
+    <div class="app">
+        <h1>PhoneGap</h1>
+        <div id="deviceready" class="blink">
+            <p class="event listening">Connecting to Device</p>
+            <p class="event received">Device is Ready</p>
+        </div>
     </div>
-
-    <div data-role="content" flex layout="column">
-
-        <md-content flex id="">
-          <md-list>
-            <md-list-item class="md-2-line" ng-click="lc.setSelected(lactation)" ng-repeat="lactation in lactations | orderBy: '-timeStamp'">
-              <md-letter-avatar class="md-avatar" data="{{lactation.breast}}" shape="round"></md-letter-avatar>
-              <div class="md-list-item-text" layout="column">
-                <h3>{{lactation.timeStamp | date:'HH:mm'}}</h3>
-                <p>{{lactation.timeStamp | date:'dd.MM.yyyy'}}</p>
-              </div>
-              <md-checkbox class="md-secondary" ng-click="lc.setSelected(lactation)" ng-checked="lc.selected == lactation"></md-checkbox>
-              <md-divider inset></md-divider>
-            </md-list-item>
-
-          </md-list>
-        </md-content>
-        <md-fab-toolbar md-open1="demo.isOpen" count="demo.count" md-direction="left">
-          <md-fab-trigger class="align-with-text">
-            <md-button  aria-label="menu1" class="md-fab md-accent">
-              <md-icon md-svg-icon="lactation:add"></md-icon>
-            </md-button>
-          </md-fab-trigger>
-
-          <md-toolbar>
-
-            <md-fab-actions class="md-toolbar-tools">
-              <md-button ng-click="lc.addNewLactation()" aria-label="done" class="md-icon-button1">
-                <md-icon md-svg-icon="lactation:add-done"></md-icon>
-              </md-button>
-              <md-button ng-click="lc.addNewLactation(null, 'Правая')" aria-label="right-breast" class="md-icon-button1">
-                <md-letter-avatar class="md-avatar" data="Правая" shape="round"></md-letter-avatar>
-              </md-button>
-              <md-button ng-click="lc.addNewLactation(null, 'Левая')" aria-label="left-breast" class="md-icon-button1">
-                <md-letter-avatar class="md-avatar" data="Левая" shape="round"></md-letter-avatar>
-              </md-button>
-            </md-fab-actions>
-
-          </md-toolbar>
-        </md-fab-toolbar>
-
-    </div>
-
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-
-    <script src="js/vendor.js"></script>
-    <script src="js/app.js"></script>
-
     <script type="text/javascript">
-      app.initialize();
+        app.initialize();
     </script>
-  </body>
+</body>
+
 </html>
